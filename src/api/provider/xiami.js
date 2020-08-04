@@ -2,7 +2,7 @@
 import md5 from 'md5';
 import AsyncStorage from '@react-native-community/async-storage';
 import queryString from 'query-string';
-import CookieManager from 'react-native-cookies';
+import CookieManager from '@react-native-community/cookies';
 
 class MyStorage {
   static setData = async (key, value) => {
