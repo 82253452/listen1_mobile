@@ -59,9 +59,6 @@ function NavHeaders({navigation, theme}) {
       }}>
       {!isFocus ? (
         <Text
-          onPress={async () => {
-            navigation.navigate('Test');
-          }}
           style={{
             flex: 0,
             flexBasis: 100,
