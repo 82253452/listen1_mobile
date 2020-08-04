@@ -1,0 +1,73 @@
+{
+  "name": "AwesomeProject",
+  "version": "0.0.1",
+  "private": true,
+  "scripts": {
+    "android": "react-native run-android",
+    "ios": "react-native run-ios",
+    "start": "react-native start",
+    "test": "jest",
+    "lint": "eslint ."
+  },
+  "dependencies": {
+    "@react-native-community/async-storage": "^1.11.0",
+    "@react-native-community/masked-view": "^0.1.10",
+    "@react-native-community/toolbar-android": "^0.1.0-rc.2",
+    "@react-native-community/viewpager": "^4.1.0",
+    "@react-navigation/bottom-tabs": "^5.7.2",
+    "@react-navigation/drawer": "^5.8.6",
+    "@react-navigation/native": "^5.7.1",
+    "@react-navigation/stack": "^5.7.1",
+    "md5": "^2.2.1",
+    "query-string": "^6.8.1",
+    "react": "16.13.1",
+    "react-native": "0.63.1",
+    "react-native-cardview": "^2.0.5",
+    "react-native-cookies": "^3.3.0",
+    "react-native-elements": "^2.0.4",
+    "react-native-gesture-handler": "^1.7.0",
+    "react-native-html-parser": "^0.1.0",
+    "react-native-iphone-x-helper": "^1.2.1",
+    "react-native-modal": "^11.5.6",
+    "react-native-modal-dropdown": "^0.7.0",
+    "react-native-music-control": "^0.12.0",
+    "react-native-randombytes": "^3.5.3",
+    "react-native-reanimated": "^1.10.1",
+    "react-native-root-toast": "^3.2.1",
+    "react-native-safe-area-context": "^3.1.1",
+    "react-native-screens": "^2.9.0",
+    "react-native-scrollable-tab-view": "^1.0.0",
+    "react-native-slider": "^0.11.0",
+    "react-native-sortable-listview": "^0.2.8",
+    "react-native-super-grid": "^4.0.3",
+    "react-native-swipe-list-view": "^3.2.3",
+    "react-native-vector-icons": "^6.6.0",
+    "react-native-video": "5.0.1",
+    "react-native-web": "^0.13.3",
+    "react-redux": "^7.1.0",
+    "react-use": "^15.3.2",
+    "redux": "^4.0.1",
+    "redux-persist": "^5.10.0",
+    "styled-components": "^5.1.1",
+    "unstated-next": "^1.1.0",
+    "use-persisted-state": "^0.3.0"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.8.4",
+    "@babel/runtime": "^7.8.4",
+    "@react-native-community/eslint-config": "^1.1.0",
+    "babel-jest": "^25.1.0",
+    "eslint": "^6.5.1",
+    "jest": "^25.1.0",
+    "metro-react-native-babel-preset": "^0.59.0",
+    "react-test-renderer": "16.13.1",
+    "rn-nodeify": "^10.2.0"
+  },
+  "jest": {
+    "preset": "react-native"
+  },
+  "resolutions": {
+    "deprecated-react-native-listview": "0.0.6",
+    "styled-components": "^5"
+  }
+}
