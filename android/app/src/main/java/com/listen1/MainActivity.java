@@ -1,4 +1,4 @@
-package com.awesomeproject;
+package com.listen1;
 
 import com.facebook.react.ReactActivity;
 import android.content.res.Configuration;
@@ -13,7 +13,7 @@ public class MainActivity extends ReactActivity {
    */
   @Override
   protected String getMainComponentName() {
-    return "AwesomeProject";
+    return "listen1";
   }
 
   @Override
