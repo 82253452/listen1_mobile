@@ -1,7 +1,8 @@
-/* eslint no-bitwise: ["error", { "allow": ["&"] }] */
 import queryString from 'query-string';
 import {weapi} from '../../modules/crypto';
 import {DOMParser} from 'react-native-html-parser';
+import CryptoJS from '../../../vendor/cryptojs_aes';
+import JSEncrypt from '../../../vendor/jsencrypt';
 function requestAPI(url, data) {
   return fetch(url, {
     method: 'POST',
@@ -139,55 +140,111 @@ function convert(allowAll) {
 
 function getPlaylist(playlistId) {
   const listId = playlistId.split('_').pop();
-  const data = {
-    id: listId,
-    offset: 0,
-    total: true,
-    limit: 1000,
-    n: 1000,
-    csrf_token: '',
-  };
 
-  const url = 'http://music.163.com/weapi/v3/playlist/detail';
+  const url = `http://music.migu.cn/v3/music/playlist/${listId}`;
 
-  return requestAPI(url, data).then((resData) => {
-    const info = {
-      id: `neplaylist_${listId}`,
-      cover_img_url: getSmallImageUrl(resData.playlist.coverImgUrl),
-      title: resData.playlist.name,
-      source_url: `http://music.163.com/#/playlist?id=${listId}`,
-    };
-    const tracks = resData.playlist.tracks.map(convert(true));
+  return fetch(url)
+    .then((res) => res.text())
+    .then((res) => {
+      const domObj = new DOMParser().parseFromString(res, 'text/html');
+      const song_elements = Array.from(
+        domObj
+          .getElementsByClassName('songlist-body')[0]
+          .getElementsByClassName('row J_CopySong'),
+      );
+      const cover_url = handleProtocolRelativeUrl(
+        domObj.getElementsByClassName('thumb-img')[0].getAttribute('src'),
+      );
+      const title = domObj
+        .getElementsByClassName('thumb-img')[0]
+        .getAttribute('alt');
+      const info = {
+        id: `playlist_${listId}`,
+        cover_img_url: cover_url,
+        title: title,
+        source_url: url,
+      };
+      const tracks = song_elements.map((item) => {
+        const cid = item
+          .getElementsByClassName('song-index J_SongIndex song-play')[0]
+          .getAttribute('data-cid');
 
-    return {
-      info,
-      tracks,
-    };
-  });
+        let album_name = '';
+        const album_list = item
+          .getElementsByClassName('song-belongs')[0]
+          .getElementsByTagName('a');
+        if (album_list.length > 0) {
+          album_name = album_list[0].getAttribute('title');
+        }
+
+        const artist_url_list = item
+          .getElementsByClassName('song-singers J_SongSingers')[0]
+          .getElementsByTagName('a')[0]
+          .getAttribute('href')
+          .split('/');
+        const artist_id = artist_url_list[artist_url_list.length - 1];
+
+        return {
+          id: `mgtrack_${cid}`,
+          title: item
+            .getElementsByClassName('song-name J_SongName')[0]
+            .getElementsByTagName('a')[0].textContent,
+          artist: item
+            .getElementsByClassName('song-singers J_SongSingers')[0]
+            .getElementsByTagName('a')[0].textContent,
+          artist_id: `mgartist_${artist_id}`,
+          album: album_name,
+          album_id: `mgalbum_${item
+            .getElementsByClassName('song-index J_SongIndex song-play')[0]
+            .getAttribute('data-aid')}`,
+          source: 'migu',
+          source_url: `http://music.migu.cn/v3/music/song/${cid}`,
+          img_url: cover_url, // TODO: use different cover for every song solution: change to mobile api. By now some play problem exists.
+          url: `mgtrack_${cid}`,
+          disabled: !cid,
+        };
+      });
+      return {
+        info,
+        tracks,
+      };
+    });
 }
 
 function bootstrapTrack(trackId) {
-  const url =
-    'http://music.163.com/weapi/song/enhance/player/url/v1?csrf_token=';
+  const song_id = trackId.slice('mgtrack_'.length);
 
-  const songId = trackId.slice('netrack_'.length);
+  const k = '4ea5c508a6566e76240543f8feb06fd457777be39549c4016436afda65d2330e';
+  const rsaEncrypt = new JSEncrypt();
+  const publicKey =
+    '-----BEGIN PUBLIC KEY-----\nMIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQC8asrfSaoOb4je+DSmKdriQJKW\nVJ2oDZrs3wi5W67m3LwTB9QVR+cE3XWU21Nx+YBxS0yun8wDcjgQvYt625ZCcgin\n2ro/eOkNyUOTBIbuj9CvMnhUYiR61lC1f1IGbrSYYimqBVSjpifVufxtx/I3exRe\nZosTByYp4Xwpb1+WAQIDAQAB\n-----END PUBLIC KEY-----';
+  rsaEncrypt.setPublicKey(publicKey);
+  const secKey = rsaEncrypt.encrypt(k);
+  // type parameter for music quality: 1: normal 2: hq 3: sq
+  const aesResult = CryptoJS.AES.encrypt(
+    `{"copyrightId":"${song_id}","type":2,"auditionsFlag":0}`,
+    k,
+  ).toString();
 
-  const data = {
-    ids: [songId],
-    level: 'standard',
-    encodeType: 'aac',
-    csrf_token: '',
-  };
-
-  return requestAPI(url, data).then((resData) => {
-    const {url: songUrl} = resData.data[0];
-
-    if (songUrl === null) {
-      return '';
-    }
-
-    return songUrl;
-  });
+  const url = `http://music.migu.cn/v3/api/music/audioPlayer/getPlayInfo?dataType=2&data=${encodeURIComponent(
+    aesResult,
+  )}&secKey=${encodeURIComponent(secKey)}`;
+  return fetch(url, {
+    headers: {
+      referer: 'http://music.migu.cn',
+      'content-type': 'application/x-www-form-urlencoded',
+    },
+  })
+    .then((res) => res.json())
+    .then(({data}) => {
+      let playUrl = '';
+      if (data.playUrl) {
+        if (data.playUrl.startsWith('//')) {
+          playUrl = 'https:' + data.playUrl;
+        }
+      }
+      return playUrl;
+    });
 }
 
 function search(keyword, curpage) {

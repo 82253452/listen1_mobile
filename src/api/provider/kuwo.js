@@ -226,27 +226,23 @@ function kw_render_playlist_result_item(item) {
 }
 
 function bootstrapTrack(trackId) {
-  const url =
-    'http://music.163.com/weapi/song/enhance/player/url/v1?csrf_token=';
+  const songId = trackId.slice('kwtrack_'.length);
 
-  const songId = trackId.slice('netrack_'.length);
+  const target_url = `${
+    'http://antiserver.kuwo.cn/anti.s?' +
+    'type=convert_url&format=aac|mp3|wma&response=url&rid=MUSIC_'
+  }${songId}`;
 
-  const data = {
-    ids: [songId],
-    level: 'standard',
-    encodeType: 'aac',
-    csrf_token: '',
-  };
-
-  return requestAPI(url, data).then((resData) => {
-    const {url: songUrl} = resData.data[0];
-
-    if (songUrl === null) {
-      return '';
-    }
-
-    return songUrl;
-  });
+  return fetch(target_url, {
+    headers: {
+      referer: 'http://antiserver.kuwo.cn',
+      'content-type': 'application/x-www-form-urlencoded',
+    },
+  })
+    .then((res) => res.text())
+    .then((res) => {
+      return res;
+    });
 }
 
 async function getToken(refresh) {

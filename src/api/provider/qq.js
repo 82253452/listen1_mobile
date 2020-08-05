@@ -231,6 +231,7 @@ function bootstrapTrack(trackId) {
   })
     .then((response) => response.json())
     .then((data) => {
+      console.log(data);
       if (data.req_0.data.midurlinfo[0].purl === '') {
         return '';
       }

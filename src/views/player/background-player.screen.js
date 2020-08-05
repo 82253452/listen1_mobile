@@ -50,7 +50,7 @@ export default function BackgroundPlayers() {
   useUpdateEffect(() => {
     if (nowplayingTrack) {
       setCurrent(0);
-      doLoadTrack(nowplayingTrack.id, true);
+      doLoadTrack(nowplayingTrack.id);
       MusicControl.setNowPlaying({
         title: nowplayingTrack.title,
         artwork: nowplayingTrack.img_url,
@@ -71,7 +71,7 @@ export default function BackgroundPlayers() {
     });
   }, [isPlaying]);
 
-  function doLoadTrack(trackId, shouldPlay) {
+  function doLoadTrack(trackId) {
     setUrl('');
     trackId &&
       LApi.bootstrapTrack(trackId).then((url) => {
@@ -81,9 +81,6 @@ export default function BackgroundPlayers() {
           return;
         }
         setUrl(url);
-        if (shouldPlay) {
-          play();
-        }
       });
   }
 

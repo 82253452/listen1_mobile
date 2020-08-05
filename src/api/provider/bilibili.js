@@ -171,27 +171,19 @@ async function bi_get_playlist(list_id) {
 }
 
 function bootstrapTrack(trackId) {
-  const url =
-    'http://music.163.com/weapi/song/enhance/player/url/v1?csrf_token=';
+  const song_id = trackId.slice('bitrack_'.length);
+  const target_url = `https://www.bilibili.com/audio/music-service-c/web/url?sid=${song_id}`;
 
-  const songId = trackId.slice('netrack_'.length);
-
-  const data = {
-    ids: [songId],
-    level: 'standard',
-    encodeType: 'aac',
-    csrf_token: '',
-  };
-
-  return requestAPI(url, data).then((resData) => {
-    const {url: songUrl} = resData.data[0];
-
-    if (songUrl === null) {
-      return '';
-    }
-
-    return songUrl;
-  });
+  return fetch(target_url, {
+    headers: {
+      referer: 'http://m.kugou.com',
+      'content-type': 'application/x-www-form-urlencoded',
+    },
+  })
+    .then((res) => res.json())
+    .then(({data}) => {
+      return data.cdns && data.cdns[0];
+    });
 }
 
 async function search(keyword, curpage) {
