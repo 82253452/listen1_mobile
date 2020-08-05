@@ -7,11 +7,11 @@
 
 如有侵权 本人邮箱 [82253452@qq.com](82253452@qq.com)
 
-##简介
+## 简介
 
 一个支持多平台的音乐播放器，后续会持续更新
 
-[![imgur](https://i.imgur.com/zYyaK92.png)]()
+[![imgur](https://github.com/82253452/listen1_mobile/blob/master/prev.jpg)]()
 
 
 
