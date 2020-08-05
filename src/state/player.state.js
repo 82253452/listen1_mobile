@@ -92,9 +92,11 @@ function UsePlayState() {
    * @param tracks
    */
   function playTracks(tracks) {
-    setTracks(tracks);
-    isPlaying || setIsPlaying(true);
-    setNowplayingTrack(tracks[0]);
+    if (tracks && tracks.length) {
+      setTracks(tracks);
+      isPlaying || setIsPlaying(true);
+      setNowplayingTrack(tracks[0]);
+    }
   }
 
   /**
