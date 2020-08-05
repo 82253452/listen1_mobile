@@ -11,7 +11,4 @@
 
 一个支持多平台的音乐播放器，后续会持续更新
 
-[![imgur](https://kan-jian.oss-cn-beijing.aliyuncs.com/topic/20200805/20200805101644_bxih.jpg)]()
-
-
-
+<img src="https://kan-jian.oss-cn-beijing.aliyuncs.com/topic/20200805/20200805101644_bxih.jpg" width="70%">
