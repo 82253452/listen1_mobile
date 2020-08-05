@@ -13,8 +13,6 @@ import Setting from './src/views/setting/setting.screen';
 import CreatePlaylist from './src/views/myplaylist/create-playlist.screen';
 import ImportPlaylist from './src/views/myplaylist/import-playlist.screen';
 import BackgroundPlayer from './src/views/player/background-player.screen';
-import ModalPlayerContainer from './src/views/player/modal-player-container.screen';
-import ModalLiteContainer from './src/views/player/modal-lite-container.screen';
 import NavHeader from './src/views/playlist/nav-header.screen';
 import {TouchableOpacity} from 'react-native-gesture-handler';
 import SettingContainer from './src/state/setting.state';
