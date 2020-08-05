@@ -12,3 +12,15 @@
 一个支持多平台的音乐播放器，后续会持续更新
 
 <img src="https://kan-jian.oss-cn-beijing.aliyuncs.com/topic/20200805/20200805101644_bxih.jpg" width="70%">
+
+## 更新计划
+
+* 更新安卓端更新bug
+
+* 打包ios端并做兼容
+
+* 新功能---歌词
+
+* 新功能---登录
+
+* ___________ 
