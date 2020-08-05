@@ -59,10 +59,6 @@ function PlaylistPopup(props, ref) {
         onOpen={onOpen}
         getItemLayout={getItemLayout}
       />
-
-      <CloseTouchable onPress={onClose}>
-        <PrimaryText>关闭</PrimaryText>
-      </CloseTouchable>
     </View>
   );
 }

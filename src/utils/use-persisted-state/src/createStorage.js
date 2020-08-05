@@ -1,7 +1,6 @@
 const createStorage = (provider) => ({
   async get(key, defaultValue) {
     const json = await provider.getItem(key);
-    // eslint-disable-next-line no-nested-ternary
     return json === null
       ? typeof defaultValue === 'function'
         ? defaultValue()

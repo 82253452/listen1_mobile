@@ -76,8 +76,7 @@ function MainPlayer({theme}) {
     prevTrack,
     togglePlay,
   } = PlayerContainer.useContainer();
-  const deviceHeight = Dimensions.get('window').height;
-  const {changeOpacity, openModal} = ModalContainer.useContainer();
+  const {openModal} = ModalContainer.useContainer();
 
   // const panResponder = useRef(
   //   PanResponder.create({

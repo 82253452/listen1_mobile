@@ -6,6 +6,7 @@ import IconI from 'react-native-vector-icons/Ionicons';
 import styled, {withTheme} from 'styled-components';
 import SearchContainer from '../../state/search.state';
 import PlayListContainer from '../../state/playList.state';
+import ModalContainer from '../../state/modal.state';
 
 const ModalBackButton = styled.TouchableOpacity`
   width: 40px;
@@ -39,9 +40,6 @@ function NavHeaders({navigation, theme}) {
     setSearchText('');
     search('');
     input.current.blur();
-  };
-  const onSetting = async () => {
-    navigation.navigate('Setting');
   };
   const updateSearch = (searchText) => {
     setSearchText(searchText);
@@ -114,11 +112,6 @@ function NavHeaders({navigation, theme}) {
           <IconI name="search-circle" size={30} color={theme.primaryColor} />
         </SettingButton>
       )}
-      {/*{!isFocus ? (*/}
-      {/*  <SettingButton onPress={onSetting}>*/}
-      {/*    <Icon name="menu" size={30} color={theme.secondaryColor} />*/}
-      {/*  </SettingButton>*/}
-      {/*) : null}*/}
     </View>
   );
 }

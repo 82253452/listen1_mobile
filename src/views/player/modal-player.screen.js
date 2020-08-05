@@ -4,7 +4,6 @@ import styled, {withTheme} from 'styled-components';
 import Slider from 'react-native-slider';
 import ModalLiteContainer from './modal-lite-container.screen';
 import PlayerControl from './player-control.screen';
-import PlayerNav from './player-nav.screen';
 import PlayerInfo from './player-info.screen';
 
 import {colors} from '../../config/colors';
@@ -79,9 +78,8 @@ function ModalPlayerViwe() {
     nextTrack,
     current,
   } = PlayerContainer.useContainer();
-  const {toggleModal, openModelLite} = ModalContainer.useContainer();
+  const {openModelLite} = ModalContainer.useContainer();
   const {
-    playListState,
     favoriteList,
     addToMyFavorite,
     removeFromMyFavorite,
@@ -108,14 +106,6 @@ function ModalPlayerViwe() {
     return favoriteList.some((t) => t.id === nowplayingTrack.id);
   }
 
-  function onMore() {
-    openModelLite({
-      height: 350,
-      type: 'track',
-      item: nowplayingTrack,
-    });
-  }
-
   function onControlPlaylist() {
     openModelLite({height: 500, type: 'nowplaying'});
   }
@@ -126,7 +116,6 @@ function ModalPlayerViwe() {
   }
   return (
     <ModalPlayer>
-      {/*<PlayerNav onBack={toggleModal} onMore={onMore} />*/}
       <CardView cardElevation={20} cardMaxElevation={40} cornerRadius={20}>
         <ModalSongCover
           source={

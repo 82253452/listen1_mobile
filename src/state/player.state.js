@@ -62,7 +62,9 @@ function UsePlayState() {
    */
   function nextTrack() {
     isPlaying || setIsPlaying(true);
+    //最后一曲
     if (nowplayingTrack.id === tracks[tracks.length - 1].id) {
+      setNowplayingTrack(tracks[0]);
       return;
     }
     let index;
@@ -123,6 +125,7 @@ function UsePlayState() {
   return {
     seek,
     setSeek,
+    playMode,
     current,
     setCurrent,
     duration,

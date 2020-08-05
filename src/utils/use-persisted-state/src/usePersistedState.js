@@ -1,5 +1,5 @@
 import {useState, useEffect, useRef} from 'react';
-import useEventListener from '@use-it/event-listener';
+// import useEventListener from '@use-it/event-listener';
 
 import createGlobalState from './createGlobalState';
 
@@ -8,14 +8,14 @@ const usePersistedState = (initialState, key, {get, set}) => {
   const [state, setState] = useState(initialState);
 
   // subscribe to `storage` change events
-  useEventListener('storage', ({key: k, newValue = {}}) => {
-    if (k === key) {
-      const newState = JSON.parse(newValue);
-      if (state !== newState) {
-        setState(newState);
-      }
-    }
-  });
+  // useEventListener('storage', ({key: k, newValue = {}}) => {
+  //   if (k === key) {
+  //     const newState = JSON.parse(newValue);
+  //     if (state !== newState) {
+  //       setState(newState);
+  //     }
+  //   }
+  // });
 
   // only called on mount
   useEffect(() => {

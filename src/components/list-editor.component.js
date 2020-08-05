@@ -9,7 +9,6 @@ import Icon from 'react-native-vector-icons/MaterialIcons';
 import SortableListView from 'react-native-sortable-listview';
 import useEffectOnce from 'react-use/lib/useEffectOnce';
 import useUpdateEffect from 'react-use/lib/useUpdateEffect';
-import {exp} from 'react-native-reanimated';
 
 function RowComponent({sortHandlers, data, onRowPress, renderRow}) {
   return (

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import IconI from 'react-native-vector-icons/Ionicons';
@@ -23,19 +23,6 @@ const PlayButton = styled(ControlButton)`
   flex: 0 80px;
 `;
 
-function getIconByPlaymode(playMode) {
-  if (playMode === 0) {
-    return 'repeat';
-  }
-  if (playMode === 1) {
-    return 'shuffle';
-  }
-  if (playMode === 2) {
-    return 'repeat-one';
-  }
-
-  return '';
-}
 function PlayerControl({
   isPlaying,
   playMode,
@@ -50,7 +37,7 @@ function PlayerControl({
     <PlayControlRow>
       <ControlButton onPress={onPlayMode}>
         <Icon
-          name={getIconByPlaymode(playMode)}
+          name={{0: 'repeat', 1: 'shuffle', 2: 'repeat-one'}[playMode] || ''}
           size={30}
           color={theme.primaryColor}
         />

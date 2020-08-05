@@ -1,5 +1,4 @@
 import React, {useRef, useState} from 'react';
-import {Platform} from 'react-native';
 import Video from 'react-native-video';
 import MusicControl from 'react-native-music-control';
 import LApi from '../../api/client';
@@ -26,9 +25,7 @@ export default function BackgroundPlayers() {
 
   useEffectOnce(() => {
     MusicControl.enableBackgroundMode(true);
-    // if (nowplayingTrack) {
-    //   doLoadTrack(nowplayingTrack.id, false);
-    // }
+
     MusicControl.on('play', () => {
       play();
     });
@@ -41,6 +38,13 @@ export default function BackgroundPlayers() {
     MusicControl.on('previousTrack', () => {
       prevTrack();
     });
+
+    MusicControl.enableControl('play', true);
+    MusicControl.enableControl('pause', true);
+    MusicControl.enableControl('stop', false);
+    MusicControl.enableControl('nextTrack', true);
+    MusicControl.enableControl('previousTrack', true);
+    MusicControl.enableControl('changePlaybackPosition', true);
   });
 
   useUpdateEffect(() => {
@@ -62,14 +66,6 @@ export default function BackgroundPlayers() {
   }, [seek]);
 
   useUpdateEffect(() => {
-    //if add the pause true app will be OOM wait to update
-    // isPlaying
-    //   ? MusicControl.enableControl('pause', isPlaying)
-    //   : MusicControl.enableControl('play', !isPlaying);
-    // MusicControl.enableControl('play', false);
-    // MusicControl.enableControl('pause', true);
-    MusicControl.enableControl('nextTrack', true);
-    MusicControl.enableControl('previousTrack', true);
     MusicControl.updatePlayback({
       state: isPlaying ? MusicControl.STATE_PLAYING : MusicControl.STATE_PAUSED,
     });
