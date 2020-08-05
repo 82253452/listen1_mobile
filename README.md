@@ -11,7 +11,7 @@
 
 一个支持多平台的音乐播放器，后续会持续更新
 
-[![imgur](https://github.com/82253452/listen1_mobile/blob/master/prev.jpg)]()
+[![imgur](https://github.com/82253452/listen1_mobile/blob/master/prev.jpg?raw=true)]()
 
 
 
