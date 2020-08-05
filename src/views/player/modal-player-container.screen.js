@@ -2,8 +2,6 @@ import React from 'react';
 import Modal from 'react-native-modal';
 import ModalContainer from '../../../src/state/modal.state';
 
-import {Dimensions, Text, View} from 'react-native';
-
 import ModalPlayer from './modal-player.screen';
 
 export default function ModalPlayers() {

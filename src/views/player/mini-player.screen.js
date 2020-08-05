@@ -1,13 +1,5 @@
-import React, {useRef, useState} from 'react';
-import {
-  TouchableOpacity,
-  PanResponder,
-  Animated,
-  View,
-  Text,
-  Dimensions,
-  Pressable,
-} from 'react-native';
+import React from 'react';
+import {Pressable} from 'react-native';
 import styled, {withTheme} from 'styled-components';
 import PlayerContainer from '../../../src/state/player.state';
 import ModalContainer from '../../../src/state/modal.state';
@@ -67,7 +59,7 @@ const PlayButtonView = styled.TouchableOpacity`
   align-items: center;
   justify-content: center;
 `;
-function MainPlayer({theme}) {
+function MainPlayer({theme, navigation}) {
   const initHeight = miniPlayerSetting.height + miniPlayerSetting.paddingBottom;
   const {
     nowplayingTrack,
@@ -112,9 +104,12 @@ function MainPlayer({theme}) {
   // function test() {
   //   console.log('');
   // }
+  function toPlayer() {
+    navigation.navigate('Player');
+  }
   return (
     <Pressable
-      onPress={openModal}
+      onPress={toPlayer}
       style={{
         width: '100%',
         height: initHeight,

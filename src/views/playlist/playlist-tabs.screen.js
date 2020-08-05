@@ -10,6 +10,7 @@ import Client from '../../api/client';
 import {ThemeFlex} from '../../components';
 import MyPlaylistList from '../myplaylist/myplaylist-list.screen';
 import SearchContainer from '../../../src/state/search.state';
+import MiniPlayer from '../player/mini-player.screen';
 
 function PlaylistTab({theme, navigation}) {
   const {
@@ -84,6 +85,7 @@ function PlaylistTab({theme, navigation}) {
           );
         })}
       </ScrollableTabView>
+      <MiniPlayer navigation={navigation} />
     </ThemeFlex>
   );
 }

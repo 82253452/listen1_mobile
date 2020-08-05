@@ -8,11 +8,11 @@ import {PrimaryText, ThemeFlex} from './src/components';
 /* screens */
 import PlaylistTabs from './src/views/playlist/playlist-tabs.screen';
 import Playlist from './src/views/playlist/playlist.screen';
+import Player from './src/views/player/modal-player.screen';
 import Setting from './src/views/setting/setting.screen';
 import CreatePlaylist from './src/views/myplaylist/create-playlist.screen';
 import ImportPlaylist from './src/views/myplaylist/import-playlist.screen';
 import BackgroundPlayer from './src/views/player/background-player.screen';
-import MiniPlayer from './src/views/player/mini-player.screen';
 import ModalPlayerContainer from './src/views/player/modal-player-container.screen';
 import ModalLiteContainer from './src/views/player/modal-lite-container.screen';
 import NavHeader from './src/views/playlist/nav-header.screen';
@@ -49,6 +49,14 @@ const ThemeAppContainer = withTheme(({theme}) => {
           name="Details"
           component={Playlist}
           options={({navigation, screenProps}) => ({screenProps}) => ({
+            headerTintColor: theme.primaryColor,
+            headerStyle: {backgroundColor: theme.windowColor},
+          })}
+        />
+        <Stack.Screen
+          name="Player"
+          component={Player}
+          options={({navigation, screenProps}) => () => ({
             headerTintColor: theme.primaryColor,
             headerStyle: {backgroundColor: theme.windowColor},
           })}
@@ -153,9 +161,6 @@ export default function App() {
         <ThemeAppContainer />
         <ThemeStatusBar />
         <BackgroundPlayer />
-        <MiniPlayer />
-        <ModalPlayerContainer />
-        <ModalLiteContainer />
       </ThemeFlex>
     </ThemeProvider>
   );
