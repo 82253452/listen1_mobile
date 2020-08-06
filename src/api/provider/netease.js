@@ -21,7 +21,7 @@ function requestAPI(url, data) {
     });
 }
 function getSmallImageUrl(url) {
-  return `${url}?param=140y140`;
+  return `${url}?param=300y300`;
 }
 function showPlaylist(page = 1) {
   const data = {

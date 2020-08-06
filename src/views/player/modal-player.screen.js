@@ -82,6 +82,8 @@ const styles = StyleSheet.create({
   image: {
     ...StyleSheet.absoluteFillObject,
     resizeMode: 'cover',
+    width: itemWidth,
+    height: itemWidth,
   },
   sliderBtn: {
     height: 40,
@@ -159,7 +161,7 @@ function ModalPlayerViwe() {
           parallaxFactor={0.4}
           {...parallaxProps}
         />
-        <Text style={styles.title} numberOfLines={2}>
+        <Text style={styles.title} numberOfLines={1}>
           {item.title}
         </Text>
       </View>
