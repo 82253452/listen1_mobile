@@ -1,10 +1,11 @@
 import React, {useState} from 'react';
-import {StyleSheet, View} from 'react-native';
+import {StyleSheet, Text, View, Dimensions, Platform} from 'react-native';
 import styled, {withTheme} from 'styled-components';
 import Slider from 'react-native-slider';
 import ModalLiteContainer from './modal-lite-container.screen';
 import PlayerControl from './player-control.screen';
 import PlayerInfo from './player-info.screen';
+import Carousel, {ParallaxImage} from 'react-native-snap-carousel';
 
 import {colors} from '../../config/colors';
 import {AImage} from '../../components';
@@ -46,12 +47,48 @@ const transTime = (time) => {
   }`;
 };
 
+function wp(percentage) {
+  const value = (percentage * viewportWidth) / 100;
+  return Math.round(value);
+}
+
+const {width: screenWidth} = Dimensions.get('window');
+
+const {width: viewportWidth, height: viewportHeight} = Dimensions.get('window');
+const slideWidth = wp(75);
+const itemHorizontalMargin = wp(2);
+
+const sliderWidth = viewportWidth;
+const itemWidth = slideWidth + itemHorizontalMargin * 2;
+
 const styles = StyleSheet.create({
+  title: {
+    color: '#fff',
+    position: 'relative',
+    top: -70,
+    left: 40,
+    fontSize: 30,
+  },
+  item: {
+    width: itemWidth,
+    height: itemWidth,
+  },
+  imageContainer: {
+    flex: 1,
+    marginBottom: Platform.select({ios: 0, android: 1}), // Prevent a random Android rendering issue
+    backgroundColor: 'white',
+    borderRadius: 10,
+  },
+  image: {
+    ...StyleSheet.absoluteFillObject,
+    resizeMode: 'cover',
+  },
   sliderBtn: {
     height: 40,
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
+    marginTop: 60,
   },
   thumb: {
     width: 20,
@@ -67,6 +104,7 @@ function ModalPlayerViwe() {
   const [progress, setProgress] = useState(0);
   const [isSeeking, setIsSeeking] = useState(false);
   const {
+    tracks,
     setSeek,
     duration,
     isPlaying,
@@ -77,6 +115,7 @@ function ModalPlayerViwe() {
     prevTrack,
     nextTrack,
     current,
+    playTrack,
   } = PlayerContainer.useContainer();
   const {openModelLite} = ModalContainer.useContainer();
   const {
@@ -109,22 +148,43 @@ function ModalPlayerViwe() {
   function onControlPlaylist() {
     openModelLite({height: 500, type: 'nowplaying'});
   }
-  function onFav() {
-    getFavStatus()
-      ? removeFromMyFavorite(nowplayingTrack)
-      : addToMyFavorite(nowplayingTrack);
+
+  function carouselItem({item, index}, parallaxProps) {
+    return (
+      <View style={styles.item}>
+        <ParallaxImage
+          containerStyle={styles.imageContainer}
+          style={styles.image}
+          source={{uri: item.img_url}}
+          parallaxFactor={0.4}
+          {...parallaxProps}
+        />
+        <Text style={styles.title} numberOfLines={2}>
+          {item.title}
+        </Text>
+      </View>
+    );
+  }
+  function indexChange(index) {
+    console.log(123);
+    playTrack(tracks[index]);
+  }
+  function getFirstIndex() {
+    const index = tracks.findIndex((t) => nowplayingTrack.id === t.id);
+    return index === -1 ? 0 : index;
   }
   return (
     <ModalPlayer>
-      <CardView cardElevation={20} cardMaxElevation={40} cornerRadius={20}>
-        <ModalSongCover
-          source={
-            !nowplayingTrack
-              ? './assets/images/logo.png'
-              : nowplayingTrack.img_url
-          }
-        />
-      </CardView>
+      <Carousel
+        firstItem={getFirstIndex()}
+        onScrollIndexChanged={indexChange}
+        data={tracks}
+        renderItem={carouselItem}
+        sliderWidth={sliderWidth}
+        itemWidth={itemWidth}
+        loop={true}
+        hasParallaxImages={true}
+      />
       <PlayerInfo nowplayingTrack={nowplayingTrack} />
       <View style={styles.sliderBtn}>
         <ModalSongTime>{transTime(current)}</ModalSongTime>

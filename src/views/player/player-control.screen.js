@@ -8,7 +8,7 @@ import {RowFlex} from '../../components';
 
 const PlayControlRow = styled(RowFlex)`
   align-items: center;
-  flex: 0 180px;
+  flex: 0 140px;
 `;
 const ControlButton = styled.TouchableOpacity`
   width: 70px;

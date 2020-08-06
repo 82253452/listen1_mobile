@@ -17,6 +17,7 @@ const ModalSongInfo = styled.View`
   align-items: center;
   justify-content: center;
   flex-direction: row;
+  margin-top: 40px;
 `;
 const Side = styled.View`
   flex: 0 60px;

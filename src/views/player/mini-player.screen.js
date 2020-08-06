@@ -68,42 +68,7 @@ function MainPlayer({theme, navigation}) {
     prevTrack,
     togglePlay,
   } = PlayerContainer.useContainer();
-  const {openModal} = ModalContainer.useContainer();
 
-  // const panResponder = useRef(
-  //   PanResponder.create({
-  //     onMoveShouldSetPanResponder: () => true,
-  //     onPanResponderGrant: () => {
-  //       console.log('grant');
-  //       openModal();
-  //     },
-  //     onPanResponderMove: (event, state) => {
-  //       changeOpacity(-state.dy / 500);
-  //     },
-  //     onPanResponderRelease: (event, state) => {
-  //       console.log('relaease');
-  //       if (-state.dy > deviceHeight / 3) {
-  //         changeOpacity(1);
-  //       } else {
-  //         changeOpacity(0);
-  //       }
-  //     },
-  //     onPanResponderTerminate: () => {
-  //       console.log('terminate');
-  //       // setViewOpacity(1);
-  //       // setViewHeight(initHeight);
-  //     },
-  //     //被强制放权
-  //     onResponderReject: () => {
-  //       console.log('reject');
-  //     },
-  //     //有其他应用夺权是否放权
-  //     onResponderTerminationRequest: () => false,
-  //   }),
-  // ).current;
-  // function test() {
-  //   console.log('');
-  // }
   function toPlayer() {
     navigation.navigate('Player');
   }
