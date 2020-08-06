@@ -166,7 +166,6 @@ function ModalPlayerViwe() {
     );
   }
   function indexChange(index) {
-    console.log(123);
     playTrack(tracks[index]);
   }
   function getFirstIndex() {
